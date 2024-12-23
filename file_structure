@@ -1,0 +1,7 @@
+seamless-synchronized-scroll/
+├── package.json
+├── src/
+│   └── extension.ts
+├── .vscodeignore
+├── README.md
+└── CHANGELOG.md 

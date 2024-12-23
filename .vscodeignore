@@ -1,0 +1,18 @@
+.cursorrules
+.cursorignore
+*.code-workspace
+开发笔记.md
+.vscode/**
+.vscode-test/**
+src/**
+.gitignore
+.yarnrc
+vsc-extension-quickstart.md
+**/tsconfig.json
+**/.eslintrc.json
+src/**/*.ts
+src/**/*.map
+
+# 确保包含编译后的文件
+!out/**/*.js
+!out/

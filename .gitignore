@@ -1,0 +1,8 @@
+node_modules/
+out/
+*.vsix
+.vscode-test/ 
+.cursorrules
+.cursorignore
+*.code-workspace
+开发笔记.md

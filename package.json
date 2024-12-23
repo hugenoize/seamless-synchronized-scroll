@@ -1,0 +1,70 @@
+{
+    "name": "seamless-synchronized-scroll",
+    "displayName": "Seamless Synchronized Scroll",
+    "description": "Synchronize scrolling between adjacent editors showing the same file",
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hugenoize/seamless-synchronized-scroll"
+    },
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "keywords": [
+        "scroll",
+        "synchronize",
+        "editor",
+        "seamless"
+    ],
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [],
+    "main": "out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "seamless-synchronized-scroll.toggleSync",
+                "title": "Enable Seamless Scroll",
+                "icon": "$(link)"
+            },
+            {
+                "command": "seamless-synchronized-scroll.disableSync",
+                "title": "Disable Seamless Scroll",
+                "icon": "$(link)"
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "seamless-synchronized-scroll.toggleSync",
+                    "group": "navigation",
+                    "when": "editorIsOpen && !seamless-synchronized-scroll.enabled"
+                },
+                {
+                    "command": "seamless-synchronized-scroll.disableSync",
+                    "group": "navigation",
+                    "when": "editorIsOpen && seamless-synchronized-scroll.enabled"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts"
+    },
+    "devDependencies": {
+        "@types/node": "^16.18.122",
+        "@types/vscode": "^1.80.0",
+        "@typescript-eslint/eslint-plugin": "^5.42.0",
+        "@typescript-eslint/parser": "^5.42.0",
+        "eslint": "^8.26.0",
+        "typescript": "^4.9.5"
+    },
+    "publisher": "huge",
+    "author": "胡戈 Hu Ge",
+    "license": "GPL-3.0"
+}
