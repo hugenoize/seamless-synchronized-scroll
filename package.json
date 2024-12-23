@@ -64,7 +64,7 @@
         "eslint": "^8.26.0",
         "typescript": "^4.9.5"
     },
-    "publisher": "huge",
+    "publisher": "hugenoize",
     "author": "胡戈 Hu Ge",
     "license": "GPL-3.0"
 }
