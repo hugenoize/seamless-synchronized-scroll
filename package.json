@@ -2,7 +2,7 @@
     "name": "seamless-synchronized-scroll",
     "displayName": "Seamless Synchronized Scroll",
     "description": "Synchronize scrolling between adjacent editors showing the same file",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/hugenoize/seamless-synchronized-scroll"
@@ -31,7 +31,7 @@
             {
                 "command": "seamless-synchronized-scroll.disableSync",
                 "title": "Disable Seamless Scroll",
-                "icon": "$(link)"
+                "icon": "$(debug-continue)"
             }
         ],
         "menus": {
@@ -57,7 +57,7 @@
         "lint": "eslint src --ext ts"
     },
     "devDependencies": {
-        "@types/node": "^16.18.122",
+        "@types/node": "^20.11.19",
         "@types/vscode": "^1.80.0",
         "@typescript-eslint/eslint-plugin": "^5.42.0",
         "@typescript-eslint/parser": "^5.42.0",

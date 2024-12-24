@@ -3,6 +3,8 @@
 A VS Code extension that synchronizes scrolling between adjacent editor groups showing the same file.
 一个 VS Code 扩展，可以在显示同一文件的相邻编辑器组之间“无缝衔接”同步滚动。
 
+![](images/1.png)
+
 Useful for novel, scriptwriting. Let you see long context at the same time, not just one page.
 适用于小说、剧本创作。能让你同时看到很长的上下文，而不是仅仅一页内容。
 
@@ -10,15 +12,18 @@ Useful for novel, scriptwriting. Let you see long context at the same time, not 
 
 - Automatically synchronizes scrolling between adjacent editor groups
 - 自动同步相邻编辑器组之间的滚动
-- Maintains a 3-line overlap between editors for seamless reading experience
-- 在编辑器之间保持3行重叠以获得无缝阅读体验
+- Maintains approximate seamless connection between editors
+- 在编辑器之间保持大致的"无缝衔接"
 - Easy to toggle on/off with a single click
 - 只需单击即可轻松开启/关闭
 
 ## Usage 使用方法
 
 1. Open the same file in adjacent editor tabs. 在相邻的编辑器 tab 中打开相同的文件。
+
 2. Click the link icon in the editor title bar to enable synchronized scrolling. 点击编辑器标题栏中的链接图标以启用同步滚动。
+![](images/2.png)
+
 3. To disable, click the link icon again. 要禁用，再次点击链接图标
 
 ## How it Works 工作原理

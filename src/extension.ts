@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as vscode from 'vscode';
 
 // 添加一个延迟函数
@@ -52,7 +54,7 @@ export function activate(context: vscode.ExtensionContext) {
         const visibleEditors = vscode.window.visibleTextEditors;
 
         // 检查左侧编辑器
-        const leftEditor = visibleEditors.find(editor => 
+        const leftEditor = visibleEditors.find((editor: vscode.TextEditor) => 
             editor.viewColumn === currentViewColumn - 1 && 
             editor.document.uri.toString() === baseEditor.document.uri.toString()
         );
@@ -73,7 +75,7 @@ export function activate(context: vscode.ExtensionContext) {
         // await delay(1000);
 
         // 计算左侧编辑器应该滚动到的行号
-        const targetLine = Math.max(0, baseEditorTopLineNumber - leftEditorVisibleLines - 3); // 这里的 -3 是冗余量，让两个editor之间，有一部分内容是重叠的，这样基本上就不会有大的问题
+        const targetLine = Math.max(0, baseEditorTopLineNumber - leftEditorVisibleLines - 2); // 这里的 -2 是冗余量，让两个editor之间，有一部分内容是重叠的，这样基本上就不会有大的问题
         // outputChannel.appendLine(`左侧编辑器可见行数: ${leftEditorVisibleLines}，计算出的目标行号: ${targetLine}`);
         
         // await delay(1000);
@@ -85,7 +87,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.TextEditorRevealType.AtTop
         );
 
-        // 4. 微调滚动位置。由于vs code的滚动机制是以"逻辑行数"为单位的，无法用精确的换行后的"实际行数"，或者页面高度百分比、绝对值为单位进行精确滚动，所以，当文档有换行时，滚动起来就非常的不精确，所以我考虑引入了滚动之后继续进行微调的处理。我曾一度觉得微调处理太麻烦了，不想用了，直接在上面的代码中设计了冗余量，让两个editor之间，有一部分内容是重叠的，这样基本上就不会有大的问题。但是实践中发现，有的文档里，有的"行"很长，一换行就一大段，这样就会造成非常大的误差，可能会造成两个编辑器之间衔接不上，所以微调还是得要
+        // 微调滚动位置。由于vs code的滚动机制是以"逻辑行数"为单位的，无法用精确的换行后的"实际行数"，或者页面高度百分比、绝对值为单位进行精确滚动，所以，当文档有换行时，滚动起来就非常的不精确，所以我考虑引入了滚动之后继续进行微调的处理。我曾一度觉得微调处理太麻烦了，不想用了，直接在上面的代码中设计了冗余量，让两个editor之间，有一部分内容是重叠的，这样基本上就不会有大的问题。但是实践中发现，有的文档里，有的"行"很长，一换行就一大段，这样就会造成非常大的误差，可能会造成两个编辑器之间衔接不上，所以微调还是得要
         let attempts = 0;
         const maxAttempts = 2; // 微调次数
 
@@ -110,7 +112,7 @@ export function activate(context: vscode.ExtensionContext) {
                 // 获取左侧编辑器当前的第一可见行
                 const leftEditorNewTopLineNumber = leftEditorNewVisibleRanges[0].start.line;
                 // 计算新的目标行号
-                const newTargetLine = Math.max(0, leftEditorNewTopLineNumber + gapBetween2Editors + 3); // 这里加3，是设计的一个冗余量，是为了让两个editor之间，有一部分内容是重叠的，这样基本上就不会有大的问题
+                const newTargetLine = Math.max(0, leftEditorNewTopLineNumber + gapBetween2Editors + 2); // 这里加2，是设计的一个冗余量，是为了让两个editor之间，有一部分内容是重叠的，这样基本上就不会有大的问题
                 
                 // 使用 revealRange 来滚动左侧编辑器
                 await leftEditor.revealRange(
@@ -153,7 +155,7 @@ export function activate(context: vscode.ExtensionContext) {
         const visibleEditors = vscode.window.visibleTextEditors;
 
         // 检查右侧编辑器
-        const rightEditor = visibleEditors.find(editor => 
+        const rightEditor = visibleEditors.find((editor: vscode.TextEditor) => 
             editor.viewColumn === currentViewColumn + 1 && 
             editor.document.uri.toString() === baseEditor.document.uri.toString()
         );
@@ -164,7 +166,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         // 计算右侧编辑器应该滚动到的行号
-        const targetLine = Math.max(0, baseEditorBottomLineNumber - 3); // -3 是重叠量
+        const targetLine = Math.max(0, baseEditorBottomLineNumber - 2); // -2 是重叠量
         
         // 将右侧编辑器滚动到目标行
         await rightEditor.revealRange(
@@ -191,11 +193,11 @@ export function activate(context: vscode.ExtensionContext) {
             const gapBetween2Editors = baseEditorBottomLineNumber - rightEditorTopLineNumber;
             // outputChannel.appendLine(`开始第 ${attempts + 1} 次微调 - 右侧编辑器顶部行号: ${rightEditorTopLineNumber}。与 base editor 的 gap：${gapBetween2Editors}`);
 
-            if (gapBetween2Editors > 3 || gapBetween2Editors <= -1) { // 如果重叠少于3行或者有空隙，需要调整
+            if (gapBetween2Editors > 2 || gapBetween2Editors <= -1) { // 如果重叠太多（多于2行）或者有空隙（小于-1行），需要调整
                 // outputChannel.appendLine(`步骤 ${attempts + 1} : 执行滚动命令 - 滚动方向: ${gapBetween2Editors > 0 ? '向上' : '向下'}`);
 
                 const rightEditorNewTopLineNumber = rightEditorNewVisibleRanges[0].start.line;
-                const newTargetLine = Math.max(0, rightEditorNewTopLineNumber + gapBetween2Editors - 3); // -3 确保重叠
+                const newTargetLine = Math.max(0, rightEditorNewTopLineNumber + gapBetween2Editors - 2); // -2 确保重叠
                 
                 await rightEditor.revealRange(
                     new vscode.Range(newTargetLine, 0, newTargetLine, 0),
@@ -244,7 +246,7 @@ export function activate(context: vscode.ExtensionContext) {
         );
         
         // 注册可见范围变化事件监听
-        visibleRangesListener = vscode.window.onDidChangeTextEditorVisibleRanges(event => {
+        visibleRangesListener = vscode.window.onDidChangeTextEditorVisibleRanges((event: vscode.TextEditorVisibleRangesChangeEvent) => {
             const activeEditor = vscode.window.activeTextEditor;
             // 只处理当前激活的编辑器的可见范围变化
             if (activeEditor && event.textEditor === activeEditor) {
